@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Composition Section</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lora" rel="stylesheet">
+    <link rel="resetstylesheet" href="reset.css">
+    <link rel="stylesheet" type="text/css" href="./css/style.css">  
+</head>
+
+    <body>
+    	<div class="Body_wrapper">
+
+            <div class="CompositionHeading">
+                <h4>Composition</h4>
+            </div>
+            <div class="CompositionBody Component">
+                <div class="CompositionBody_wrapper Composition"> 
+                    <div class="Composition_info">
+                        <p>Image only illustrates thr order and placement of components as described in literature.</p>
+                    </div>
+
+                    <div class="Composition_image">
+                        <img class="SphereImage" src="./Images/sph4.svg">
+                        <canvas id="canvas" class="Composition_image_canvasLines"></canvas>
+                            <a class="Composition_image_link active" pivotpoint="0" href="#" style="top: 102px; left: 122px;"></a>
+                            <a class="Composition_image_link" pivotpoint="1" href="#" style="top: 119px; left: 175px;"></a>
+                            <a class="Composition_image_link" pivotpoint="2" href="#" style="top: 139px; left: 198px;"></a>
+                            <a class="Composition_image_link" pivotpoint="3" href="#" style="top: 167px; left: 203px;"></a>
+
+                            <ul class="Composition_image_label Label">
+                                <li id="itemOne" class="Label_listItem active" pivotpoint="0"><a class="listItem_link"><span class="listItem_mobile">1</span><span class="listItem_desktop">gold</span></a></li>
+                                <li id="itemTwo" class="Label_listItem" pivotpoint="1"><a class="listItem_link"><span class="listItem_mobile">2</span><span class="listItem_desktop">dielectric</span></a></li>
+                                <li id="itemThree" class="Label_listItem" pivotpoint="2"><a class="listItem_link"><span class="listItem_mobile">3</span><span class="listItem_desktop">gold</span></a></li>
+                                <li id="itemFour" class="Label_listItem" pivotpoint="3"><a class="listItem_link"><span class="listItem_mobile">4</span><span class="listItem_desktop">dielectric</span></a></li>
+                            </ul>
+                    </div>
+                </div> 
+                    
+                <div class="Component_info">
+                    <div class="Component_info_details Components" id="firstComponentDiv" relpoint="0">
+                        <div class="Components_circleIndex">1</div>
+                        <div class="Components_heading">
+                            <h3>gold</h3>
+                            <a id="firstComponent" class="CrossButton"></a>
+                        </div>
+                        <div class="Components_wrapper">
+                            <div class="Components_property Property">
+                                <b class="Property_name">Type</b>
+                                <span class="Property_value">Single Compound</span>
+                            </div>
+
+                            <div class="Components_property Property">
+                                <b class="Property_name">Formula</b>
+                                <span class="Property_value">Au</span>
+                            </div>
+
+                            <div class="Components_property Property">
+                                <b class="Property_name">Role</b>
+                                <span class="Property_value">core</span>
+                            </div>
+                            
+                        </div>
+                    </div>
+
+                    <div class="Component_info_details Components Component_info_details--disable" id="secondComponentDiv" relpoint="1">
+                        <div class="Components_circleIndex">2</div>
+                        <div class="Components_heading">
+                            <h3>dielectric</h3>
+                            <a class="CrossButton"></a>
+                        </div>
+                        <div class="Components_wrapper">
+                            <div class="Components_property Property">
+                                <b class="Property_name">Type</b>
+                                <span class="Property_value">Complex Compound</span>
+                            </div>
+                            <div class="Components_property Property">
+                                <b class="Property_name">Formula</b>
+                                <span class="Property_value">–</span>
+                            </div>
+
+                            <div class="Components_property Property">
+                                <b class="Property_name">Role</b>
+                                <span class="Property_value">layer</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="Component_info_details Components Component_info_details--disable" id="thirdComponentDiv" relpoint="2">
+                        <div class="Components_circleIndex">3</div>
+                        <div class="Components_heading">
+                            <h3>gold</h3>
+                            <a class="CrossButton"></a>
+                        </div>
+                        <div class="Components_wrapper">
+                            
+                            <div class="Components_property Property">
+                                <b class="Property_name">Type</b>
+                                <span class="Property_value">Single Compound</span>
+                            </div>
+                            <div class="Components_property Property">
+                                <b class="Property_name">Formula</b>
+                                <span class="Property_value">Au</span>
+                            </div>
+
+                            <div class="Components_property Property">
+                                <b class="Property_name">Role</b>
+                                <span class="Property_value">layer</span>
+                            </div>
+                            
+                        </div>
+                    </div>
+
+                    <div class="Component_info_details Components Component_info_details--disable" id="fourthComponentDiv" relpoint="3">
+                        <div class="Components_circleIndex">4</div>
+                        <div class="Components_heading">
+                            <h3>dielectric</h3>
+                            <a class="CrossButton"></a>
+                        </div>
+                        <div class="Components_wrapper">
+
+                            <div class="Components_property Property">
+                                <b class="Property_name">Type</b>
+                                <span class="Property_value">Complex Compound</span>
+                            </div>
+
+                            <div class="Components_property Property">
+                                <b class="Property_name">Formula</b>
+                                <span class="Property_value">–</span>
+                            </div>
+                            <div class="Components_property Property">
+                                <b class="Property_name">Role</b>
+                                <span class="Property_value">layer</span>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+	</div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- <script type="text/javascript" src="script.js" ></script> -->
+    <script type="text/javascript" src="js/script.js" ></script>
+    </body>  
+    <!--test comment -->
+</html>
