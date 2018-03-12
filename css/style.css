@@ -1,8 +1,8 @@
 body {
   margin: 0;
   padding: 0;
-  font-size: 16px;
-  background-color: #FFF;
+  font-size: 13px;
+  background: #f0f0f0;
   font-family: "Source Sans Pro", arial, helvetica, sans-serif; }
 
 img {
@@ -35,189 +35,96 @@ input, button {
   margin: 0;
   padding: 0; }
 
-.Body_wrapper {
-  padding: 20px; }
-  @media screen and (min-width: 901px) {
-    .Body_wrapper {
-      max-width: 800px;
-      margin: 0 auto; } }
-  .Body_wrapper .CompositionHeading {
-    font-family: "Source Sans Pro", arial, helvetica, sans-serif;
-    font-size: 16px;
-    color: #000;
-    background: #ecf2f4;
-    padding: 7px 10px;
-    margin: 7px 0; }
-    .Body_wrapper .CompositionHeading h4 {
-      font-weight: normal; }
-  .Body_wrapper .CompositionBody:before, .Body_wrapper .CompositionBody:after {
-    content: "";
-    display: table; }
-  .Body_wrapper .CompositionBody:after {
-    clear: both; }
-  @media screen and (min-width: 901px) {
-    .Body_wrapper .CompositionBody .Composition {
-      width: 480px;
-      float: left; } }
-  .Body_wrapper .CompositionBody .Composition .Composition_info p {
-    padding: 10px 0 0;
-    color: #666;
-    font-size: 13px;
-    line-height: 1.5;
-    font-weight: 300;
-    margin-bottom: 20px; }
-  .Body_wrapper .CompositionBody .Composition .Composition_image {
-    height: 300px;
+.BodyWrapper {
+  display: table;
+  position: absolute;
+  height: 100%;
+  width: 100%; }
+  .BodyWrapper .Container {
+    display: table-cell;
+    vertical-align: middle; }
+  .BodyWrapper .Search_Content {
     position: relative;
-    min-height: 300px; }
-    .Body_wrapper .CompositionBody .Composition .Composition_image .Composition_image_canvasLines {
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: 100; }
-    .Body_wrapper .CompositionBody .Composition .Composition_image .Composition_image_link {
-      position: absolute;
-      height: 13px;
-      width: 13px;
-      border-radius: 50%;
-      background: url("../Images/dot.svg") no-repeat center center;
-      z-index: 101; }
-      .Body_wrapper .CompositionBody .Composition .Composition_image .Composition_image_link.active {
-        background: url("../Images/dot-active.svg") no-repeat center center; }
-    .Body_wrapper .CompositionBody .Composition .Composition_image .Label {
-      position: absolute;
-      top: 16px;
-      left: 300px; }
-      @media screen and (min-width: 901px) {
-        .Body_wrapper .CompositionBody .Composition .Composition_image .Label {
-          top: 4px;
-          left: 275px;
-          z-index: 102; } }
-    .Body_wrapper .CompositionBody .Composition .Composition_image .Label_listItem {
-      list-style-type: none;
-      margin-bottom: 20px;
-      border-radius: 50%; }
-      @media screen and (min-width: 320px) {
-        .Body_wrapper .CompositionBody .Composition .Composition_image .Label_listItem .listItem_mobile {
-          height: 18px;
-          width: 18px;
-          border-radius: 50%;
-          border: 1px solid #999999;
-          color: #666;
-          background: #fff;
-          text-align: center;
-          font-size: 13px;
-          display: block; }
-        .Body_wrapper .CompositionBody .Composition .Composition_image .Label_listItem .listItem_desktop {
-          display: none; } }
-      @media screen and (min-width: 901px) {
-        .Body_wrapper .CompositionBody .Composition .Composition_image .Label_listItem {
-          margin-bottom: 23px; }
-          .Body_wrapper .CompositionBody .Composition .Composition_image .Label_listItem .listItem_mobile {
-            display: none; }
-          .Body_wrapper .CompositionBody .Composition .Composition_image .Label_listItem .listItem_desktop {
-            display: block; } }
-      .Body_wrapper .CompositionBody .Composition .Composition_image .Label_listItem .listItem_desktop {
-        font-family: "Source Sans Pro", arial, helvetica, sans-serif;
-        font-size: 13px;
-        color: #069;
-        cursor: pointer; }
-    @media screen and (min-width: 901px) {
-      .Body_wrapper .CompositionBody .Composition .Composition_image .active {
-        background: #fff; } }
-    .Body_wrapper .CompositionBody .Composition .Composition_image .active .listItem_desktop {
-      color: #000;
-      font-weight: bolder; }
-    .Body_wrapper .CompositionBody .Composition .Composition_image .active .listItem_mobile {
-      background: #666;
-      color: #fff;
-      border-color: #666; }
+    margin: 0 auto;
+    width: 60%;
+    height: auto;
+    box-sizing: border-box; }
 
-@media screen and (min-width: 901px) {
-  .Component_info {
-    float: right; } }
-.Component_info .Component_info_details {
-  position: relative;
-  padding: 15px 20px 15px 35px;
-  border-top: 2px solid #EE7D11;
-  background: #f8f8f8; }
-  @media screen and (min-width: 901px) {
-    .Component_info .Component_info_details {
-      max-height: 300px;
-      width: 215px;
-      top: 45px;
-      padding: 20px 25px; } }
-  .Component_info .Component_info_details .Components_circleIndex {
-    position: absolute;
-    left: 5px;
-    height: 18px;
-    width: 18px;
-    border-radius: 50%;
-    border: 1px solid #666;
-    font-size: 11px;
-    font-weight: 100;
-    line-height: 1.8;
-    background: #666;
+.Search_Content {
+  margin: 30px;
+  background: #F8F8F8;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+  border: 1px solid #eaeaea;
+  box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.3); }
+  .Search_Content .Search_TopBar {
+    margin: 0 auto;
+    box-sizing: border-box;
+    background-color: #444;
     color: #fff;
-    margin-bottom: 18px;
-    text-align: center;
-    font-size: 11px; }
-    @media screen and (min-width: 901px) {
-      .Component_info .Component_info_details .Components_circleIndex {
-        display: none; } }
-  .Component_info .Component_info_details .Components_heading h3 {
-    padding: 0 25px 10px 0;
-    margin-bottom: 10px;
-    line-height: 1.3;
-    font-weight: 100;
-    font-family: Lora, Palatino, Times, Times New Roman, serif; }
-  .Component_info .Component_info_details .Components_heading .CrossButton {
-    position: absolute;
-    top: 20px;
-    right: 10px;
-    text-decoration: none;
-    height: 18px;
-    width: 18px;
-    cursor: pointer;
-    background: url("../Images/cross.png") no-repeat center center;
-    background-size: contain; }
-  .Component_info .Component_info_details .Components_wrapper {
-    border-top: 1px solid #d8d8d8; }
-    .Component_info .Component_info_details .Components_wrapper .Components_property {
-      margin-top: 20px; }
-      .Component_info .Component_info_details .Components_wrapper .Components_property .Property_name {
-        display: block;
-        margin-bottom: 4px;
-        font-size: 12px; }
-      .Component_info .Component_info_details .Components_wrapper .Components_property .Property_value {
-        font-size: 12px; }
-  .Component_info .Component_info_details.Component_info_details--disable {
-    background: none;
-    border: none;
-    border-bottom: 1px solid #d8d8d8;
-    height: auto; }
-    @media screen and (min-width: 901px) {
-      .Component_info .Component_info_details.Component_info_details--disable {
-        display: none; } }
-    .Component_info .Component_info_details.Component_info_details--disable .Components_heading h3 {
-      font-family: "Source Sans Pro", arial, helvetica, sans-serif;
+    border-radius: 5px 5px 0 0;
+    text-align: center; }
+    .Search_Content .Search_TopBar h5 {
+      font-size: 15px;
+      padding: 10px 0; }
+  .Search_Content .Search_Heading {
+    padding: 10px 0; }
+    .Search_Content .Search_Heading h2 {
+      font-size: 20px;
+      line-height: 1.5em;
+      padding: 10px 0;
+      color: #444;
+      position: relative;
+      overflow: hidden;
+      text-align: center; }
+    .Search_Content .Search_Heading p {
+      display: block;
       font-size: 13px;
-      color: #069;
-      margin-bottom: 0;
-      padding-bottom: 0;
-      border: none;
-      cursor: pointer; }
-    .Component_info .Component_info_details.Component_info_details--disable .Components_heading .CrossButton {
-      display: none; }
-    .Component_info .Component_info_details.Component_info_details--disable .Components_circleIndex {
-      cursor: pointer;
-      background: white;
-      border: 1px solid #999999;
-      color: #666; }
-    @media screen and (min-width: 320px) {
-      .Component_info .Component_info_details.Component_info_details--disable .RemoveBottomBorder {
-        border-bottom: none; } }
-    .Component_info .Component_info_details.Component_info_details--disable .Components_wrapper {
-      display: none; }
+      color: #444;
+      line-height: 1.5rem;
+      margin-bottom: 20px;
+      text-align: center; }
+
+.Search_Content .Search_Wrapper {
+  position: relative;
+  width: 60%;
+  height: 40px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  margin-bottom: 60px; }
+  .Search_Content .Search_Wrapper .Search_Input {
+    border-radius: 5px;
+    border: 2px solid #fff;
+    margin: 0 auto;
+    border: thin solid #e5e5e5;
+    box-shadow: 0px 1px 1px 1px #e5e5e5;
+    padding: 3px 5px;
+    width: 100%;
+    height: inherit;
+    box-sizing: border-box;
+    width: 100%;
+    font-size: 13px;
+    color: #444; }
+    .Search_Content .Search_Wrapper .Search_Input:focus {
+      outline: none; }
+  .Search_Content .Search_Wrapper .Search_Button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    cursor: pointer;
+    border: thin solid #e5e5e5;
+    box-shadow: 1px 1px 1px 1px #e5e5e5;
+    background-image: url("../Images/search-icon.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 25px 25px;
+    text-align: center;
+    border-radius: 5px;
+    width: 40px;
+    height: inherit;
+    background-color: #444; }
+    .Search_Content .Search_Wrapper .Search_Button:focus {
+      outline: none; }
 
 /*# sourceMappingURL=style.css.map */
