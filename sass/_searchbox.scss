@@ -1,0 +1,64 @@
+.Search_Content {
+
+	.Search_Panel {
+		margin: 0 auto;
+	    padding: 5px;
+	    padding-left: 10px;
+	    width: 80%;
+		.Search_PanelForm {
+			position: relative;
+    		padding-right: 50px;
+    		box-sizing: border-box;
+		    width: 100%;
+		    position: relative;
+		}
+	}
+}
+
+.Search_PanelForm {
+
+	.Search_InputWrapper {
+		padding-top: 3px;
+	    padding-bottom: 1px;
+	    overflow: hidden;
+	    box-sizing: border-box;
+	    width: 100%;
+	    position: relative;
+		.Search_Input {
+			font-size: 13px;
+			box-shadow: none;
+		    line-height: normal;
+		    border: none;
+		    outline: none;
+		    width: 100%;  // To be applied dynamically
+		    height: 32px;
+		    padding: 2px 4px;
+		    font-weight: 200;
+    		color: #666666;
+
+		}
+	}
+
+	.Search_ButtonWrapper {
+		color: #FFF;
+	    padding: 2px;
+	    position: absolute;right: 0;top: 0;
+	    height: 40px;
+	    width: 40px;
+		.Search_Button {
+			cursor:pointer;
+			border: thin solid #e5e5e5;
+			box-shadow:1px 1px 1px 1px #e5e5e5;
+			background-image: url('../Images/search-icon.png');
+			background-repeat: no-repeat;
+			background-position: center center; 
+			background-size:25px 25px;
+			text-align:center;
+			width: 40px;
+			height: inherit;
+			background-color: #444;
+
+		}
+	}
+
+}

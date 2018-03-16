@@ -14,14 +14,8 @@
 		position:relative;
 		margin: 0 auto;
 		width: 60%;
-		height: auto;
+		height: 300px;
 		box-sizing: border-box;
-	}
-}
-
-.Search_Content{
-	.Results {
-		height: 100px;
 	}
 }
 .Search_Content {
@@ -73,57 +67,6 @@
 }
 
 
-.Search_Content {
 
-	.Search_Wrapper {
-		position:relative;
-		width: 60%;
-		height:40px;
-		margin: 0 auto;
-		box-sizing: border-box;
-		margin-bottom: 60px;
-		.Search_Input {
-
-			border-radius: 5px;
-		    border: 2px solid #fff;
-		    margin:0 auto;
-		    border: thin solid #e5e5e5;
-		    box-shadow:0px 1px 1px 1px #e5e5e5;
-		    padding: 3px 5px;
-		    width: 100%;
-		    height: 40px;
-			box-sizing: border-box;
-			width: 100%;
-			font-size: 13px;
-			color: #444;
-
-			&:focus {
-				outline: none;
-			}
-		}
-
-		.Search_Button{
-
-			position:absolute; right:0; top: 0;
-			cursor:pointer;
-			border: thin solid #e5e5e5;
-			box-shadow:1px 1px 1px 1px #e5e5e5;
-			background-image: url('../Images/search-icon.png');
-			background-repeat: no-repeat;
-			background-position: center center; 
-			background-size:25px 25px;
-			text-align:center;
-			border-radius: 5px;
-			width: 40px;
-			height: inherit;
-			background-color: #444;
-
-			&:focus {
-				outline: none;
-			}
-		}
-	}
-
-}
 
 

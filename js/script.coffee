@@ -1,41 +1,37 @@
 window.AutoSuggest = class AutoSuggest
-	constructor: ->
+    constructor: ->
 
-        @displayDetails = "Details:"
+        @displayDetails
 
-        # $(window).on "resize", () =>
-        #     location.reload()
+    init: ->
 
-	init: ->
-
-		@options = 
+        @options = 
             url: "./json/countries.json"
             getValue: "country_name"
             list:
                 match: 
                     enabled: true
                 onChooseEvent: ()->
-                    countryname = $("#countryname").getSelectedItemData().country_name
-                    dialingcode = $("#countryname").getSelectedItemData().dialling_code
+                    countryname = $("#searchInput").getSelectedItemData().country_name
+                    dialingcode = $("#searchInput").getSelectedItemData().dialling_code
 
-                    #@displayDetails = '<li>'+countryname+'</li>'
-                    #@displayDetails = '<li>'+dialingcodes+'</li>'
+                    console.log (countryname+" , "+dialingcode)
 
                     @displayDetails = '<li class="attribute" ><strong>Country Name: </strong>'+countryname+'</li><li class="value"><strong>Dialling Code: </strong>'+dialingcode+'</li>'
                     
 
                     $(".Results_list").html(@displayDetails)
 
-                    
-            
-        $("#countryname").easyAutocomplete(@options)
-		
+        $("#searchInput").keydown(()->
 
-        $(".Search_Button").on "click",() =>
+             $(".Results_list").html(" ")
+        )                
+    
+        $("#searchInput").easyAutocomplete(@options)
+        
+
+        # $(".Search_Button").on "click",() =>
 
 $(document).ready ->
-	autoObject = new AutoSuggest()
-	autoObject.init()
-
-
-	
+    autoObject = new AutoSuggest()
+    autoObject.init()

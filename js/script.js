@@ -4,7 +4,7 @@
 
   window.AutoSuggest = AutoSuggest = (function() {
     function AutoSuggest() {
-      this.displayDetails = "Details:";
+      this.displayDetails;
     }
 
     AutoSuggest.prototype.init = function() {
@@ -17,17 +17,18 @@
           },
           onChooseEvent: function() {
             var countryname, dialingcode;
-            countryname = $("#countryname").getSelectedItemData().country_name;
-            dialingcode = $("#countryname").getSelectedItemData().dialling_code;
+            countryname = $("#searchInput").getSelectedItemData().country_name;
+            dialingcode = $("#searchInput").getSelectedItemData().dialling_code;
+            console.log(countryname + " , " + dialingcode);
             this.displayDetails = '<li class="attribute" ><strong>Country Name: </strong>' + countryname + '</li><li class="value"><strong>Dialling Code: </strong>' + dialingcode + '</li>';
             return $(".Results_list").html(this.displayDetails);
           }
         }
       };
-      $("#countryname").easyAutocomplete(this.options);
-      return $(".Search_Button").on("click", (function(_this) {
-        return function() {};
-      })(this));
+      $("#searchInput").keydown(function() {
+        return $(".Results_list").html(" ");
+      });
+      return $("#searchInput").easyAutocomplete(this.options);
     };
 
     return AutoSuggest;
