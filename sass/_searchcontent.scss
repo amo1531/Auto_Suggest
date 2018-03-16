@@ -19,7 +19,11 @@
 	}
 }
 
-
+.Search_Content{
+	.Results {
+		height: 100px;
+	}
+}
 .Search_Content {
 
 	margin: 30px;
@@ -87,7 +91,7 @@
 		    box-shadow:0px 1px 1px 1px #e5e5e5;
 		    padding: 3px 5px;
 		    width: 100%;
-		    height: inherit;
+		    height: 40px;
 			box-sizing: border-box;
 			width: 100%;
 			font-size: 13px;

@@ -1,0 +1,33 @@
+.easy-autocomplete-container {
+	ul {
+		border: thin solid #d0d0d0;
+		background-color: #fff;
+		li {
+			list-style-type: none;
+			padding: 5px 10px;
+
+		}
+		li.selected {
+		    background: none repeat scroll 0 0 #ebebeb;
+		    cursor: pointer;
+		}
+	}
+}
+.Search_Content {
+	.Results {
+		width: 60%;
+		margin: 0 auto;
+	}
+}
+.Results_list {
+	li{
+		list-style-type: none;
+		padding: 5px 0;
+		&.attribute {
+			color: #444;
+		}
+		&.value {
+			color: #444;
+		}
+	}		
+}

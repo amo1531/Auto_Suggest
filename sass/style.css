@@ -1,0 +1,130 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 13px;
+  background: #f0f0f0;
+  font-family: "Source Sans Pro", arial, helvetica, sans-serif; }
+
+img {
+  padding: 0;
+  margin: 0; }
+
+h1, h2, h3, h4, h5 {
+  font-style: none;
+  padding: 0;
+  margin: 0; }
+
+p {
+  margin: 0;
+  padding: 0; }
+
+input {
+  padding: 0;
+  margin: 0;
+  border-radius: 0; }
+
+span {
+  margin: 0;
+  padding: 0; }
+
+ul, li {
+  margin: 0;
+  padding: 0; }
+
+input, button {
+  margin: 0;
+  padding: 0; }
+
+.BodyWrapper {
+  display: table;
+  position: absolute;
+  height: 100%;
+  width: 100%; }
+  .BodyWrapper .Container {
+    display: table-cell;
+    vertical-align: middle; }
+  .BodyWrapper .Search_Content {
+    position: relative;
+    margin: 0 auto;
+    width: 60%;
+    height: auto;
+    box-sizing: border-box; }
+
+.Search_Content {
+  margin: 30px;
+  background: #F8F8F8;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+  border: 1px solid #eaeaea;
+  box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.3); }
+  .Search_Content .Search_TopBar {
+    margin: 0 auto;
+    box-sizing: border-box;
+    background-color: #444;
+    color: #fff;
+    border-radius: 5px 5px 0 0;
+    text-align: center; }
+    .Search_Content .Search_TopBar h5 {
+      font-size: 15px;
+      padding: 10px 0; }
+  .Search_Content .Search_Heading {
+    padding: 10px 0; }
+    .Search_Content .Search_Heading h2 {
+      font-size: 20px;
+      line-height: 1.5em;
+      padding: 10px 0;
+      color: #444;
+      position: relative;
+      overflow: hidden;
+      text-align: center; }
+    .Search_Content .Search_Heading p {
+      display: block;
+      font-size: 13px;
+      color: #444;
+      line-height: 1.5rem;
+      margin-bottom: 20px;
+      text-align: center; }
+
+.Search_Content .Search_Wrapper {
+  position: relative;
+  width: 60%;
+  height: 40px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  margin-bottom: 60px; }
+  .Search_Content .Search_Wrapper .Search_Input {
+    border-radius: 5px;
+    border: 2px solid #fff;
+    margin: 0 auto;
+    border: thin solid #e5e5e5;
+    box-shadow: 0px 1px 1px 1px #e5e5e5;
+    padding: 3px 5px;
+    width: 100%;
+    height: inherit;
+    box-sizing: border-box;
+    width: 100%;
+    font-size: 13px;
+    color: #444; }
+    .Search_Content .Search_Wrapper .Search_Input:focus {
+      outline: none; }
+  .Search_Content .Search_Wrapper .Search_Button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    cursor: pointer;
+    border: thin solid #e5e5e5;
+    box-shadow: 1px 1px 1px 1px #e5e5e5;
+    background-image: url("../Images/search-icon.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 25px 25px;
+    text-align: center;
+    border-radius: 5px;
+    width: 40px;
+    height: inherit;
+    background-color: #444; }
+    .Search_Content .Search_Wrapper .Search_Button:focus {
+      outline: none; }
+
+/*# sourceMappingURL=style.css.map */

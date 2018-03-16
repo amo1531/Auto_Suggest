@@ -1,25 +1,41 @@
 window.AutoSuggest = class AutoSuggest
 	constructor: ->
-		
+
+        @displayDetails = "Details:"
+
+        # $(window).on "resize", () =>
+        #     location.reload()
+
 	init: ->
-		console.log "linked"
-		$("#countryname").autocomplete(
-			country = $("#countryname").val()
-			$.ajax(
-				url: 'json/countries.json',
-				dataType: 'json',
-				success: (data) ->
-					displayDetails = ''
-					$.each(data.countryCodes,(index,value)=>
-						if(data.countryCodes[index].country_name.toLowerCase() == country.toLowerCase())
-							displayDetails += '<li> Country Name:- '+data.countryCodes[index].country_name+'</li>'  
-							displayDetails += '<li> Country Code:- '+data.countryCodes[index].country_code+'</li>'  
-							displayDetails += '<li> Dialling Code:- '+data.countryCodes[index].dialling_code+'</li>'  
-					)
-					$("#results").html(displayDetails)
-			)
-		)
+
+		@options = 
+            url: "./json/countries.json"
+            getValue: "country_name"
+            list:
+                match: 
+                    enabled: true
+                onChooseEvent: ()->
+                    countryname = $("#countryname").getSelectedItemData().country_name
+                    dialingcode = $("#countryname").getSelectedItemData().dialling_code
+
+                    #@displayDetails = '<li>'+countryname+'</li>'
+                    #@displayDetails = '<li>'+dialingcodes+'</li>'
+
+                    @displayDetails = '<li class="attribute" ><strong>Country Name: </strong>'+countryname+'</li><li class="value"><strong>Dialling Code: </strong>'+dialingcode+'</li>'
+                    
+
+                    $(".Results_list").html(@displayDetails)
+
+                    
+            
+        $("#countryname").easyAutocomplete(@options)
+		
+
+        $(".Search_Button").on "click",() =>
 
 $(document).ready ->
 	autoObject = new AutoSuggest()
 	autoObject.init()
+
+
+	

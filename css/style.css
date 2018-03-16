@@ -50,6 +50,9 @@ input, button {
     height: auto;
     box-sizing: border-box; }
 
+.Search_Content .Results {
+  height: 100px; }
+
 .Search_Content {
   margin: 30px;
   background: #F8F8F8;
@@ -101,7 +104,7 @@ input, button {
     box-shadow: 0px 1px 1px 1px #e5e5e5;
     padding: 3px 5px;
     width: 100%;
-    height: inherit;
+    height: 40px;
     box-sizing: border-box;
     width: 100%;
     font-size: 13px;
@@ -126,5 +129,27 @@ input, button {
     background-color: #444; }
     .Search_Content .Search_Wrapper .Search_Button:focus {
       outline: none; }
+
+.easy-autocomplete-container ul {
+  border: thin solid #d0d0d0;
+  background-color: #fff; }
+  .easy-autocomplete-container ul li {
+    list-style-type: none;
+    padding: 5px 10px; }
+  .easy-autocomplete-container ul li.selected {
+    background: none repeat scroll 0 0 #ebebeb;
+    cursor: pointer; }
+
+.Search_Content .Results {
+  width: 60%;
+  margin: 0 auto; }
+
+.Results_list li {
+  list-style-type: none;
+  padding: 5px 0; }
+  .Results_list li.attribute {
+    color: #444; }
+  .Results_list li.value {
+    color: #444; }
 
 /*# sourceMappingURL=style.css.map */

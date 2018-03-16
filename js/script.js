@@ -3,29 +3,31 @@
   var AutoSuggest;
 
   window.AutoSuggest = AutoSuggest = (function() {
-    function AutoSuggest() {}
+    function AutoSuggest() {
+      this.displayDetails = "Details:";
+    }
 
     AutoSuggest.prototype.init = function() {
-      var country;
-      console.log("linked");
-      return $("#countryname").autocomplete(country = $("#countryname").val(), $.ajax({
-        url: 'json/countries.json',
-        dataType: 'json',
-        success: function(data) {
-          var displayDetails;
-          displayDetails = '';
-          $.each(data.countryCodes, (function(_this) {
-            return function(index, value) {
-              if (data.countryCodes[index].country_name.toLowerCase() === country.toLowerCase()) {
-                displayDetails += '<li> Country Name:- ' + data.countryCodes[index].country_name + '</li>';
-                displayDetails += '<li> Country Code:- ' + data.countryCodes[index].country_code + '</li>';
-                return displayDetails += '<li> Dialling Code:- ' + data.countryCodes[index].dialling_code + '</li>';
-              }
-            };
-          })(this));
-          return $("#results").html(displayDetails);
+      this.options = {
+        url: "./json/countries.json",
+        getValue: "country_name",
+        list: {
+          match: {
+            enabled: true
+          },
+          onChooseEvent: function() {
+            var countryname, dialingcode;
+            countryname = $("#countryname").getSelectedItemData().country_name;
+            dialingcode = $("#countryname").getSelectedItemData().dialling_code;
+            this.displayDetails = '<li class="attribute" ><strong>Country Name: </strong>' + countryname + '</li><li class="value"><strong>Dialling Code: </strong>' + dialingcode + '</li>';
+            return $(".Results_list").html(this.displayDetails);
+          }
         }
-      }));
+      };
+      $("#countryname").easyAutocomplete(this.options);
+      return $(".Search_Button").on("click", (function(_this) {
+        return function() {};
+      })(this));
     };
 
     return AutoSuggest;
