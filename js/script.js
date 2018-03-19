@@ -25,10 +25,30 @@
           }
         }
       };
-      $("#searchInput").keydown(function() {
-        return $(".Results_list").html(" ");
-      });
-      return $("#searchInput").easyAutocomplete(this.options);
+      $("#searchInput").easyAutocomplete(this.options);
+      this.widthOnPageLoad();
+      return $(".Search_Button").on('click', (function(_this) {
+        return function() {
+          return _this.onSearchClick();
+        };
+      })(this));
+    };
+
+    AutoSuggest.prototype.widthOnPageLoad = function() {
+      $(".easy-autocomplete").css("width", "100%");
+      return $("#searchInput").css("width", "100%");
+    };
+
+    AutoSuggest.prototype.onSearchClick = function() {
+      var inputbox, parentwidth, searchValue;
+      searchValue = $("#searchInput").val();
+      console.log(searchValue.length);
+      parentwidth = $(".easy-autocomplete").width();
+      console.log(parentwidth);
+      this.options.list.onChooseEvent();
+      inputbox = '<input class="Search_Input" value ="' + searchValue + '" type ="text" />';
+      $("#searchInput").val(" ");
+      return $(".easy-autocomplete").prepend(inputbox);
     };
 
     return AutoSuggest;

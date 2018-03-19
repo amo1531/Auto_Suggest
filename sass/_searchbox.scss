@@ -18,19 +18,19 @@
 .Search_PanelForm {
 
 	.Search_InputWrapper {
-		padding-top: 3px;
-	    padding-bottom: 1px;
-	    overflow: hidden;
+		position: relative;
 	    box-sizing: border-box;
+	    padding-top: 2px;
+	    padding-bottom: 2px;
 	    width: 100%;
-	    position: relative;
+	    overflow: hidden;
 		.Search_Input {
 			font-size: 13px;
 			box-shadow: none;
 		    line-height: normal;
 		    border: none;
 		    outline: none;
-		    width: 100%;  // To be applied dynamically
+		    // width: 100%;  // To be applied dynamically
 		    height: 32px;
 		    padding: 2px 4px;
 		    font-weight: 200;
@@ -60,5 +60,4 @@
 
 		}
 	}
-
 }
