@@ -96,7 +96,7 @@ input, button {
     background: none repeat scroll 0 0 #ebebeb;
     cursor: pointer; }
 
-.Search_Content .Results {
+.Search .Results {
   width: 60%;
   margin: 0 auto;
   height: auto; }

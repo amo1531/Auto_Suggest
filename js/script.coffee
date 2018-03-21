@@ -2,7 +2,8 @@ window.AutoSuggest = class AutoSuggest
     constructor: ->
 
         @displayDetails
-
+        @boxWidth = 0
+        @newInputArray = []
     init: ->
 
         @options = 
@@ -17,37 +18,51 @@ window.AutoSuggest = class AutoSuggest
                     console.log (countryname+" , "+dialingcode)
 
                     @displayDetails = '<li class="attribute" ><strong>Country Name: </strong>'+countryname+'</li><li class="value"><strong>Dialling Code: </strong>'+dialingcode+'</li>'
-                    $(".Results_list").html(@displayDetails)
+                    $(".Results_list").append(@displayDetails)
+
 
         $("#searchInput").easyAutocomplete(@options)
 
         @widthOnPageLoad()
-
-        # $("#searchInput").keydown(()->
-        #      $(".Results_list").html(" ")
-        # )                
             
         $(".Search_Button").on 'click', () =>
             @onSearchClick()
 
-    
+        # $('#searchInput').keypress((e) =>
+        #     if(e.which == 13)
+        #         @onSearchClick()
+        #     )
+
     widthOnPageLoad: () ->
         $(".easy-autocomplete").css("width","100%")
         $("#searchInput").css("width","100%")
 
     onSearchClick: ->
-        searchValue = $("#searchInput").val()
-        console.log searchValue.length
+
         parentwidth = $(".easy-autocomplete").width()
-        console.log parentwidth
+        # console.log parentwidth
         @options.list.onChooseEvent() 
-        # $("#searchInput").css('width','')
-        inputbox = '<input class="Search_Input" value ="'+searchValue+'" type ="text" />'
-    
+
+        searchValue = $("#searchInput").val()
+        if searchValue.length > 25
+            dynamicWidth = searchValue.length * 8
+        else
+            dynamicWidth = searchValue.length * 7
+
+        console.log "search value length:- "+searchValue.length
+        console.log "dynamic width:- "+dynamicWidth
+
+        inputbox = '<input class="Search_Input dynamicInput" " type ="text" value ="'+searchValue+'" style="width:'+dynamicWidth+'px" />'
+        console.log inputbox
         $("#searchInput").val(" ")
         $(".easy-autocomplete").prepend(inputbox)
+        @changeMainSearchWidth(dynamicWidth+16)
 
-
+    changeMainSearchWidth: (dynamicWidth) ->
+        console.log "width with padding- "+dynamicWidth 
+        @boxWidth += dynamicWidth
+        console.log ("totalwidth"+@boxWidth)
+        $("#searchInput").css("width","calc(100% - "+(@boxWidth)+"px)");
 
 
 $(document).ready ->

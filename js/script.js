@@ -5,6 +5,8 @@
   window.AutoSuggest = AutoSuggest = (function() {
     function AutoSuggest() {
       this.displayDetails;
+      this.boxWidth = 0;
+      this.newInputArray = [];
     }
 
     AutoSuggest.prototype.init = function() {
@@ -21,7 +23,7 @@
             dialingcode = $("#searchInput").getSelectedItemData().dialling_code;
             console.log(countryname + " , " + dialingcode);
             this.displayDetails = '<li class="attribute" ><strong>Country Name: </strong>' + countryname + '</li><li class="value"><strong>Dialling Code: </strong>' + dialingcode + '</li>';
-            return $(".Results_list").html(this.displayDetails);
+            return $(".Results_list").append(this.displayDetails);
           }
         }
       };
@@ -40,15 +42,29 @@
     };
 
     AutoSuggest.prototype.onSearchClick = function() {
-      var inputbox, parentwidth, searchValue;
-      searchValue = $("#searchInput").val();
-      console.log(searchValue.length);
+      var dynamicWidth, inputbox, parentwidth, searchValue;
       parentwidth = $(".easy-autocomplete").width();
-      console.log(parentwidth);
       this.options.list.onChooseEvent();
-      inputbox = '<input class="Search_Input" value ="' + searchValue + '" type ="text" />';
+      searchValue = $("#searchInput").val();
+      if (searchValue.length > 25) {
+        dynamicWidth = searchValue.length * 8;
+      } else {
+        dynamicWidth = searchValue.length * 7;
+      }
+      console.log("search value length:- " + searchValue.length);
+      console.log("dynamic width:- " + dynamicWidth);
+      inputbox = '<input class="Search_Input dynamicInput" " type ="text" value ="' + searchValue + '" style="width:' + dynamicWidth + 'px" />';
+      console.log(inputbox);
       $("#searchInput").val(" ");
-      return $(".easy-autocomplete").prepend(inputbox);
+      $(".easy-autocomplete").prepend(inputbox);
+      return this.changeMainSearchWidth(dynamicWidth + 16);
+    };
+
+    AutoSuggest.prototype.changeMainSearchWidth = function(dynamicWidth) {
+      console.log("width with padding- " + dynamicWidth);
+      this.boxWidth += dynamicWidth;
+      console.log("totalwidth" + this.boxWidth);
+      return $("#searchInput").css("width", "calc(100% - " + this.boxWidth + "px)");
     };
 
     return AutoSuggest;
