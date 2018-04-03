@@ -3,9 +3,11 @@ window.AutoSuggest = class AutoSuggest
 
         @displayDetails
         @boxWidth = 0
-        @newInputArray = []
+        @countryNames = []
+        @currentUrl = window.location.hrefs
+        @countryObject = {}
+        @i = 1
     init: ->
-
         @options = 
             url: "./json/countries.json"
             getValue: "country_name"
@@ -16,54 +18,76 @@ window.AutoSuggest = class AutoSuggest
                     countryname = $("#searchInput").getSelectedItemData().country_name
                     dialingcode = $("#searchInput").getSelectedItemData().dialling_code
                     console.log (countryname+" , "+dialingcode)
-
                     @displayDetails = '<li class="attribute" ><strong>Country Name: </strong>'+countryname+'</li><li class="value"><strong>Dialling Code: </strong>'+dialingcode+'</li>'
                     $(".Results_list").append(@displayDetails)
+                onClickEvent: () =>
+                    @createBoxDynamically()
 
-
+        
         $("#searchInput").easyAutocomplete(@options)
 
-        @widthOnPageLoad()
+        @widthOnPageLoad("page  url"+@currentUrl)
             
         $(".Search_Button").on 'click', () =>
+            # @options.list.onChooseEvent()
             @onSearchClick()
 
-        # $('#searchInput').keypress((e) =>
-        #     if(e.which == 13)
-        #         @onSearchClick()
-        #     )
+        $("#searchInput").on('keydown', (e) => 
+            keyCode = e.keyCode || e.which
+            if (keyCode == 9) 
+                e.preventDefault()
+                @createBoxDynamically()    
+        )
 
     widthOnPageLoad: () ->
         $(".easy-autocomplete").css("width","100%")
         $("#searchInput").css("width","100%")
 
-    onSearchClick: ->
+    createBoxDynamically: () ->
 
         parentwidth = $(".easy-autocomplete").width()
-        # console.log parentwidth
-        @options.list.onChooseEvent() 
-
         searchValue = $("#searchInput").val()
+       
         if searchValue.length > 25
             dynamicWidth = searchValue.length * 8
         else
             dynamicWidth = searchValue.length * 7
 
-        console.log "search value length:- "+searchValue.length
-        console.log "dynamic width:- "+dynamicWidth
-
         inputbox = '<input class="Search_Input dynamicInput" " type ="text" value ="'+searchValue+'" style="width:'+dynamicWidth+'px" />'
-        console.log inputbox
+        spanElement = '<span class = "Search_Span" >'+inputbox+'</span>'
+
         $("#searchInput").val(" ")
-        $(".easy-autocomplete").prepend(inputbox)
+        $(".easy-autocomplete").prepend(spanElement)
+        latestname = $(".dynamicInput:first").val()
+        @countryObject['name'+@i] = latestname
+        @i += 1
+        console.log @countryObject
         @changeMainSearchWidth(dynamicWidth+16)
 
     changeMainSearchWidth: (dynamicWidth) ->
-        console.log "width with padding- "+dynamicWidth 
-        @boxWidth += dynamicWidth
-        console.log ("totalwidth"+@boxWidth)
-        $("#searchInput").css("width","calc(100% - "+(@boxWidth)+"px)");
 
+        @boxWidth += dynamicWidth
+        if(@boxWidth > 440)
+            $("#searchInput").css("width","461px")
+            @dynamicWidth = 0
+        else   
+            $("#searchInput").css("width","calc(100% - "+(@boxWidth)+"px)")
+
+
+    onSearchClick: ->
+       
+        recursiveDecoded = decodeURIComponent( $.param( @countryObject ) )
+        console.log ("search terms :- " +recursiveDecoded)
+
+        advancedUrl = @currentUrl + "?" +recursiveDecoded
+        console.log ("final url:- " +advancedUrl)
+        window.location.href = advancedUrl
+        # # @currentUrl = advancedUrl
+        # console.log (@currentUrl)
+
+        # console.log ("recursiveEncoded := " +recursiveEncoded)
+       
+    
 
 $(document).ready ->
     autoObject = new AutoSuggest()

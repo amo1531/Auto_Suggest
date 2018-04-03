@@ -6,7 +6,10 @@
     function AutoSuggest() {
       this.displayDetails;
       this.boxWidth = 0;
-      this.newInputArray = [];
+      this.countryNames = [];
+      this.currentUrl = window.location.hrefs;
+      this.countryObject = {};
+      this.i = 1;
     }
 
     AutoSuggest.prototype.init = function() {
@@ -24,14 +27,29 @@
             console.log(countryname + " , " + dialingcode);
             this.displayDetails = '<li class="attribute" ><strong>Country Name: </strong>' + countryname + '</li><li class="value"><strong>Dialling Code: </strong>' + dialingcode + '</li>';
             return $(".Results_list").append(this.displayDetails);
-          }
+          },
+          onClickEvent: (function(_this) {
+            return function() {
+              return _this.createBoxDynamically();
+            };
+          })(this)
         }
       };
       $("#searchInput").easyAutocomplete(this.options);
-      this.widthOnPageLoad();
-      return $(".Search_Button").on('click', (function(_this) {
+      this.widthOnPageLoad("page  url" + this.currentUrl);
+      $(".Search_Button").on('click', (function(_this) {
         return function() {
           return _this.onSearchClick();
+        };
+      })(this));
+      return $("#searchInput").on('keydown', (function(_this) {
+        return function(e) {
+          var keyCode;
+          keyCode = e.keyCode || e.which;
+          if (keyCode === 9) {
+            e.preventDefault();
+            return _this.createBoxDynamically();
+          }
         };
       })(this));
     };
@@ -41,30 +59,43 @@
       return $("#searchInput").css("width", "100%");
     };
 
-    AutoSuggest.prototype.onSearchClick = function() {
-      var dynamicWidth, inputbox, parentwidth, searchValue;
+    AutoSuggest.prototype.createBoxDynamically = function() {
+      var dynamicWidth, inputbox, latestname, parentwidth, searchValue, spanElement;
       parentwidth = $(".easy-autocomplete").width();
-      this.options.list.onChooseEvent();
       searchValue = $("#searchInput").val();
       if (searchValue.length > 25) {
         dynamicWidth = searchValue.length * 8;
       } else {
         dynamicWidth = searchValue.length * 7;
       }
-      console.log("search value length:- " + searchValue.length);
-      console.log("dynamic width:- " + dynamicWidth);
       inputbox = '<input class="Search_Input dynamicInput" " type ="text" value ="' + searchValue + '" style="width:' + dynamicWidth + 'px" />';
-      console.log(inputbox);
+      spanElement = '<span class = "Search_Span" >' + inputbox + '</span>';
       $("#searchInput").val(" ");
-      $(".easy-autocomplete").prepend(inputbox);
+      $(".easy-autocomplete").prepend(spanElement);
+      latestname = $(".dynamicInput:first").val();
+      this.countryObject['name' + this.i] = latestname;
+      this.i += 1;
+      console.log(this.countryObject);
       return this.changeMainSearchWidth(dynamicWidth + 16);
     };
 
     AutoSuggest.prototype.changeMainSearchWidth = function(dynamicWidth) {
-      console.log("width with padding- " + dynamicWidth);
       this.boxWidth += dynamicWidth;
-      console.log("totalwidth" + this.boxWidth);
-      return $("#searchInput").css("width", "calc(100% - " + this.boxWidth + "px)");
+      if (this.boxWidth > 440) {
+        $("#searchInput").css("width", "461px");
+        return this.dynamicWidth = 0;
+      } else {
+        return $("#searchInput").css("width", "calc(100% - " + this.boxWidth + "px)");
+      }
+    };
+
+    AutoSuggest.prototype.onSearchClick = function() {
+      var advancedUrl, recursiveDecoded;
+      recursiveDecoded = decodeURIComponent($.param(this.countryObject));
+      console.log("search terms :- " + recursiveDecoded);
+      advancedUrl = this.currentUrl + "?" + recursiveDecoded;
+      console.log("final url:- " + advancedUrl);
+      return window.location.href = advancedUrl;
     };
 
     return AutoSuggest;
