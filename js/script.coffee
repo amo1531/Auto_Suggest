@@ -4,8 +4,9 @@ window.AutoSuggest = class AutoSuggest
         @displayDetails
         @boxWidth = 0
         @countryNames = []
-        @currentUrl = window.location.hrefs
+        @currentUrl = window.location.href
         @countryObject = {}
+        @encodedSearchTerm
         @i = 1
     init: ->
         @options = 
@@ -26,11 +27,12 @@ window.AutoSuggest = class AutoSuggest
         
         $("#searchInput").easyAutocomplete(@options)
 
-        @widthOnPageLoad("page  url"+@currentUrl)
-            
+        @widthOnPageLoad()
         $(".Search_Button").on 'click', () =>
-            # @options.list.onChooseEvent()
-            @onSearchClick()
+           advancedUrl = @onSearchClick(@currentUrl,@countryObject)
+           console.log advancedUrl
+           # @encodedSearchTerm = encodeURIComponent(advancedUrl).replace(/%20/g,'+')
+           # console.log @encodedSearchTerm
 
         $("#searchInput").on('keydown', (e) => 
             keyCode = e.keyCode || e.which
@@ -38,31 +40,35 @@ window.AutoSuggest = class AutoSuggest
                 e.preventDefault()
                 @createBoxDynamically()    
         )
+        $(".Search_cross").on "click", () =>
+            # removeItemFromInput(this)
+            # console.log $(this).closest("input")
+            console.log ("clicked")
 
     widthOnPageLoad: () ->
         $(".easy-autocomplete").css("width","100%")
         $("#searchInput").css("width","100%")
 
     createBoxDynamically: () ->
-
-        parentwidth = $(".easy-autocomplete").width()
+        # parentwidth = $(".easy-autocomplete").width()
         searchValue = $("#searchInput").val()
-       
-        if searchValue.length > 25
-            dynamicWidth = searchValue.length * 8
-        else
+        console.log searchValue.length
+        dynamicWidth = searchValue.length * 8
+        if searchValue.length > 24
             dynamicWidth = searchValue.length * 7
+        else
+            dynamicWidth = searchValue.length * 8
 
-        inputbox = '<input class="Search_Input dynamicInput" " type ="text" value ="'+searchValue+'" style="width:'+dynamicWidth+'px" />'
-        spanElement = '<span class = "Search_Span" >'+inputbox+'</span>'
+        inputbox = '<input class="Search_Input DynamicInput" " type ="text" value ="'+searchValue+'"/>'+'<a class="Search_cross">×</a>'
+        spanElement = '<span class = "SearchSpan" style="width:'+dynamicWidth+'px" >'+inputbox+'</span>'
 
-        $("#searchInput").val(" ")
+        $("#searchInput").val("")
         $(".easy-autocomplete").prepend(spanElement)
-        latestname = $(".dynamicInput:first").val()
+        latestname = $(".DynamicInput:first").val()
         @countryObject['name'+@i] = latestname
         @i += 1
         console.log @countryObject
-        @changeMainSearchWidth(dynamicWidth+16)
+        @changeMainSearchWidth(dynamicWidth+24)
 
     changeMainSearchWidth: (dynamicWidth) ->
 
@@ -74,20 +80,27 @@ window.AutoSuggest = class AutoSuggest
             $("#searchInput").css("width","calc(100% - "+(@boxWidth)+"px)")
 
 
-    onSearchClick: ->
-       
-        recursiveDecoded = decodeURIComponent( $.param( @countryObject ) )
-        console.log ("search terms :- " +recursiveDecoded)
+    onSearchClick: (url ,obj) ->
 
-        advancedUrl = @currentUrl + "?" +recursiveDecoded
-        console.log ("final url:- " +advancedUrl)
-        window.location.href = advancedUrl
-        # # @currentUrl = advancedUrl
-        # console.log (@currentUrl)
+        qs = ""
+        $.each(obj,(key,value) =>
+            val = obj[key]
+            qs += encodeURIComponent(key) + "=" + encodeURIComponent(val) + "&"
+        )
+        if (qs.length > 0)
+             qs = qs.substring(0, qs.length-1)
+        url = url + "?" + qs
 
-        # console.log ("recursiveEncoded := " +recursiveEncoded)
-       
-    
+        return url
+                    
+        # recursiveDecoded = decodeURIComponent( $.param( @countryObject ) )
+        # console.log ("search terms :- " +recursiveDecoded)
+
+        # advancedUrl = @currentUrl + "?" +recursiveDecoded
+        # console.log ("final url:- " +advancedUrl)
+    # removeItemFromInput: (current) ->
+        
+
 
 $(document).ready ->
     autoObject = new AutoSuggest()

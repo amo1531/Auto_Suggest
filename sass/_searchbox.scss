@@ -20,31 +20,64 @@
 	.Search_InputWrapper {
 		position: relative;
 	    box-sizing: border-box;
-	    padding-top: 2px;
-	    padding-bottom: 2px;
 	    width: 100%;
 	    overflow: hidden;
-		.Search_Input {
+	    padding: 4px;
+    	border: 1px solid #dadada;
+    	background: #fff;
+
+  		.Search_Input {
 			font-size: 13px;
 			box-shadow: none;
 		    line-height: normal;
+		    background: none;
+		    box-sizing: border-box;
 		    border: none;
 		    outline: none;
-		    // width: 100%;  // To be applied dynamically
-		    height: 32px;
+		    height: 35px;
 		    padding: 2px 4px;
 		    font-weight: 200;
     		color: #666666;
-
 		}
+		
+		.SearchSpan {
+			position: relative;
+			display: inline-block;
+			box-sizing:border-box;
+			margin-right: 20px;
+
+			.Search_Input {
+
+				font-size: 13px;
+				box-shadow: none;
+			    line-height: normal;
+			    border: none;
+			    outline: none;
+			    width: 100%;
+	    		color: #666666;
+			}
+
+			.Search_cross {
+				color: #666666;
+				font-size: 16px;
+				cursor: pointer;
+			    line-height: 1;
+			    color: #777777;
+			    position: absolute;
+			    top: 5px;
+			    right: -4px;
+			    z-index: 500;
+			}
+		}
+
 	}
 
 	.Search_ButtonWrapper {
 		color: #FFF;
 	    padding: 2px;
 	    position: absolute;right: 0;top: 0;
-	    height: 40px;
-	    width: 40px;
+	    height: 42px;
+	    width: 42px;
 		.Search_Button {
 			cursor:pointer;
 			border: thin solid #e5e5e5;
