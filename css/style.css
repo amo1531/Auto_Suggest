@@ -86,15 +86,12 @@ input, button {
       margin-bottom: 20px;
       text-align: center; }
 
-.easy-autocomplete-container ul {
-  border: thin solid #d0d0d0;
-  background-color: #fff; }
-  .easy-autocomplete-container ul li {
-    list-style-type: none;
-    padding: 5px 10px; }
-  .easy-autocomplete-container ul li.selected {
-    background: none repeat scroll 0 0 #ebebeb;
-    cursor: pointer; }
+.easy-autocomplete-container ul li {
+  list-style-type: none;
+  padding: 5px 10px; }
+.easy-autocomplete-container ul li.selected {
+  background: none repeat scroll 0 0 #ebebeb;
+  cursor: pointer; }
 
 .Search .Results {
   width: 60%;
