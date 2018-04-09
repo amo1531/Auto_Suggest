@@ -98,13 +98,15 @@ input, button {
   margin: 0 auto;
   height: auto; }
 
-.Results_list li {
-  list-style-type: none;
-  padding: 5px 0; }
-  .Results_list li.attribute {
-    color: #444; }
-  .Results_list li.value {
-    color: #444; }
+.Results_list {
+  display: none; }
+  .Results_list li {
+    list-style-type: none;
+    padding: 5px 0; }
+    .Results_list li.attribute {
+      color: #444; }
+    .Results_list li.value {
+      color: #444; }
 
 .Search_Content .Search_Panel {
   margin: 0 auto;

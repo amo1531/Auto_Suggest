@@ -5,10 +5,11 @@ window.AutoSuggest = class AutoSuggest
         @boxWidth = 0
         @countryNames = []
         @currentUrl = window.location.href
-        @countryObject = {}
-        @encodedSearchTerm
-        @i = 1
     init: ->
+
+        if @currentUrl.indexOf("countryNames=") > -1
+            @createBoxOnloadOfPage()
+        
         @options = 
             url: "./json/countries.json"
             getValue: "country_name"
@@ -25,27 +26,29 @@ window.AutoSuggest = class AutoSuggest
                 onClickEvent: () =>
                     @createBoxDynamically()
 
-        
         $("#searchInput").easyAutocomplete(@options)
-
-        console.log window.location.href
         @widthOnPageLoad()
 
         $(".Search_Button").on 'click', () =>
 
             modifiedValue = ""
             inputBoxes = $(".Search_InputWrapper").find(".DynamicInput")
-
             $.each(inputBoxes,(index,elements) =>
                 searchValue = $(elements).val()
-                modifiedValue = modifiedValue + searchValue + "+"
+                if ((modifiedValue.length > 0) && (searchValue.length > 0))
+                    modifiedValue = modifiedValue + " AND "
+                modifiedValue = modifiedValue + searchValue
+
+                $(".Results_list").css("display","block")
+                
             )
-            modifiedValue = modifiedValue.substring(0, modifiedValue.length-1)
-            advancedUrl = @currentUrl + "?countryNames=" + modifiedValue
-            console.log advancedUrl
+        
+            encodedTerm = encodeURIComponent(modifiedValue).replace(/%20/g,'+')
+            advancedUrl = @buildqueryStringUrl(@currentUrl, "countryNames", encodedTerm)
+        
             if (history.pushState) 
                 newurl = advancedUrl
-                window.history.pushState({path:newurl},'',newurl);
+                window.history.pushState({path:newurl},'',newurl)
 
         $("#searchInput").on('keydown', (e) => 
             keyCode = e.keyCode || e.which
@@ -58,14 +61,15 @@ window.AutoSuggest = class AutoSuggest
 
             closestEle = $(e.currentTarget)
             valueToBeRemoved = closestEle.siblings("input").val()
+            @countryNames.pop(valueToBeRemoved)
             res = $(".Results_list").find("li .countryname")  
-            $.each(res,(i,v) =>
-                if (valueToBeRemoved == $(v).html())
-                    $(v).parent().parent().remove()
+            $.each(res,(index,elements) =>
+                if (valueToBeRemoved == $(elements).html())
+                    $(elements).parent().parent().remove()
             )
 
             @removeItemFromInput(closestEle)  
-             
+
 
     widthOnPageLoad: () ->
         $(".easy-autocomplete").css("width","100%")
@@ -87,6 +91,10 @@ window.AutoSuggest = class AutoSuggest
         $(".easy-autocomplete").prepend(spanElement)
         @changeMainSearchWidth(dynamicWidth+24)
 
+
+    buildqueryStringUrl:(currenturl, parameter, searchTerm) ->
+        currenturl + "?" + parameter + "=" + searchTerm
+
     changeMainSearchWidth: (dynamicWidth) ->
 
         @boxWidth += dynamicWidth
@@ -95,27 +103,51 @@ window.AutoSuggest = class AutoSuggest
             @dynamicWidth = 0
         else   
             $("#searchInput").css("width","calc(100% - "+(@boxWidth)+"px)")
-
-
-    # onSearchClick: (url ,obj) ->
-
-    #     qs = ""
-    #     $.each(obj,(key,value) =>
-    #         val = obj[key]
-    #         qs += encodeURIComponent(key) + "=" + encodeURIComponent(val) + "&"
-    #     )
-    #     if (qs.length > 0)
-    #          qs = qs.substring(0, qs.length-1)
-    #     url = url + "?" + qs
-
-    #     return url
                     
     removeItemFromInput: (current) ->
     
         current.parent("span").next(".DynamicInput").remove()
         current.parent("span").remove()
+
+    searchForMatchingData: (value) ->
+        $.getJSON('./json/countries.json',(data) =>
+            $.each(data,(index,obj) =>
+                if(value == data[index].country_name) 
+                    @displayDetails = '<li class="name"><p><label><strong>Country Name: </strong></label><label class = "countryname" >'+data[index].country_name+
+                    '</label></p><p class="code"><label><strong>Dialling Code: </strong></label><label class = "dialingcode" >'+data[index].dialling_code+'</label></p></li>'
+                    $(".Results_list").append(@displayDetails)
+                    $(".Results_list").css("display","block")
+
+            )
+        )
     
-    
+    createBoxOnloadOfPage: () ->
+        queryString = @currentUrl.split('?countryNames=')[1]
+        console.log queryString
+        queryString=queryString.split("+AND+")
+        $.each(queryString,(index,value) =>
+            country = queryString[index].replace(/\+/g," ")
+            console.log country
+            @countryNames.push(country)
+            @searchForMatchingData(country)
+        )
+        console.log queryString
+        $.each(@countryNames,(index,value) =>
+
+            dynamicWidth = @countryNames[index].length * 8
+            if @countryNames[index].length > 24
+                dynamicWidth = @countryNames[index].length * 7
+            else
+                dynamicWidth = @countryNames[index].length * 8
+
+            inputbox = '<input class="Search_Input DynamicInput" " type ="text" value ="'+@countryNames[index]+'"/>'+'<a class="Search_cross">×</a>'
+            spanElement = '<span class = "SearchSpan" style="width:'+dynamicWidth+'px" >'+inputbox+'</span>'
+            # console.log (inputbox)
+            # console.log (spanElement)
+            $("#searchInput").val("")
+            $(".Search_InputWrapper").prepend(spanElement)
+            @changeMainSearchWidth(dynamicWidth+24)
+         )
 
 $(document).ready ->
     autoObject = new AutoSuggest()
