@@ -24,9 +24,10 @@ window.AutoSuggest = class AutoSuggest
                     '</label></p><p class="code"><label><strong>Dialling Code: </strong></label><label class = "dialingcode" >'+dialingcode+'</label></p></li>'
                     $(".Results_list").append(@displayDetails)
                 onClickEvent: () =>
-                    @createBoxDynamically()
+                    @setWidthOfDynamicInputBox()
 
         $("#searchInput").easyAutocomplete(@options)
+
         @widthOnPageLoad()
 
         $(".Search_Button").on 'click', () =>
@@ -54,15 +55,16 @@ window.AutoSuggest = class AutoSuggest
             keyCode = e.keyCode || e.which
             if (keyCode == 9) 
                 e.preventDefault()
-                @createBoxDynamically()    
+                @setWidthOfDynamicInputBox()    
         )
 
         $(".Search_InputWrapper").on "click", ".Search_cross", (e) =>
 
             closestEle = $(e.currentTarget)
             valueToBeRemoved = closestEle.siblings("input").val()
-            @countryNames.pop(valueToBeRemoved)
-            res = $(".Results_list").find("li .countryname")  
+            
+            res = $(".Results_list").find("li .countryname") 
+
             $.each(res,(index,elements) =>
                 if (valueToBeRemoved == $(elements).html())
                     $(elements).parent().parent().remove()
@@ -75,7 +77,7 @@ window.AutoSuggest = class AutoSuggest
         $(".easy-autocomplete").css("width","100%")
         $("#searchInput").css("width","100%")
 
-    createBoxDynamically: () ->
+    setWidthOfDynamicInputBox: () ->
         
         searchValue = $("#searchInput").val()
         dynamicWidth = searchValue.length * 8
@@ -84,18 +86,17 @@ window.AutoSuggest = class AutoSuggest
         else
             dynamicWidth = searchValue.length * 8
 
-        inputbox = '<input class="Search_Input DynamicInput" " type ="text" value ="'+searchValue+'"/>'+'<a class="Search_cross">×</a>'
-        spanElement = '<span class = "SearchSpan" style="width:'+dynamicWidth+'px" >'+inputbox+'</span>'
+        spanElement = @getInputStructure(dynamicWidth,searchValue)
 
-        $("#searchInput").val("")
+    
         $(".easy-autocomplete").prepend(spanElement)
-        @changeMainSearchWidth(dynamicWidth+24)
+        @setWidthOfMainInputBox(dynamicWidth+24)
 
 
     buildqueryStringUrl:(currenturl, parameter, searchTerm) ->
         currenturl + "?" + parameter + "=" + searchTerm
 
-    changeMainSearchWidth: (dynamicWidth) ->
+    setWidthOfMainInputBox: (dynamicWidth) ->
 
         @boxWidth += dynamicWidth
         if(@boxWidth > 440)
@@ -105,7 +106,6 @@ window.AutoSuggest = class AutoSuggest
             $("#searchInput").css("width","calc(100% - "+(@boxWidth)+"px)")
                     
     removeItemFromInput: (current) ->
-    
         current.parent("span").next(".DynamicInput").remove()
         current.parent("span").remove()
 
@@ -113,14 +113,39 @@ window.AutoSuggest = class AutoSuggest
         $.getJSON('./json/countries.json',(data) =>
             $.each(data,(index,obj) =>
                 if(value == data[index].country_name) 
-                    @displayDetails = '<li class="name"><p><label><strong>Country Name: </strong></label><label class = "countryname" >'+data[index].country_name+
-                    '</label></p><p class="code"><label><strong>Dialling Code: </strong></label><label class = "dialingcode" >'+data[index].dialling_code+'</label></p></li>'
+                    @displayDetails = @resultDetails(data[index].country_name,data[index].dialling_code)
+                    # @displayDetails = '<li class="name"><p><label><strong>Country Name: </strong></label><label class = "countryname" >'+data[index].country_name+
+                    # '</label></p><p class="code"><label><strong>Dialling Code: </strong></label><label class = "dialingcode" >'+data[index].dialling_code+'</label></p></li>'
                     $(".Results_list").append(@displayDetails)
                     $(".Results_list").css("display","block")
 
             )
         )
-    
+
+    getInputStructure: (dynamicWidth, searchValue) ->
+        htmlStructure = '<span class = "SearchSpan" style="width:'+dynamicWidth+'px" >'+
+                            '<input class="Search_Input DynamicInput" " type ="text" value ="'+searchValue+'"/>'+
+                            '<a class="Search_cross">×</a>'+
+                        '</span>'
+
+        $("#searchInput").val("")
+
+        return $(htmlStructure)
+
+    resultDetails: (name,code) ->
+        result = '<li class="name">'+
+                        '<p>'+
+                            '<label><strong>Country Name: </strong></label>'+
+                            '<label class = "countryname" >'+name+'</label>'+
+                        '</p>'+
+                        '<p>'+
+                            '<label><strong>Dialling Code: </strong></label>'+
+                            '<label class = "dialingcode" >'+code+'</label>'+
+                        '</p>'+
+                '</li>'
+        return $(result)
+
+
     createBoxOnloadOfPage: () ->
         queryString = @currentUrl.split('?countryNames=')[1]
         console.log queryString
@@ -140,13 +165,10 @@ window.AutoSuggest = class AutoSuggest
             else
                 dynamicWidth = @countryNames[index].length * 8
 
-            inputbox = '<input class="Search_Input DynamicInput" " type ="text" value ="'+@countryNames[index]+'"/>'+'<a class="Search_cross">×</a>'
-            spanElement = '<span class = "SearchSpan" style="width:'+dynamicWidth+'px" >'+inputbox+'</span>'
-            # console.log (inputbox)
-            # console.log (spanElement)
-            $("#searchInput").val("")
+            spanElement = @getInputStructure(dynamicWidth,@countryNames[index])
+            
             $(".Search_InputWrapper").prepend(spanElement)
-            @changeMainSearchWidth(dynamicWidth+24)
+            @setWidthOfMainInputBox(dynamicWidth+24)
          )
 
 $(document).ready ->

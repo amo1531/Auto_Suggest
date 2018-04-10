@@ -47,7 +47,6 @@ input, button {
     position: relative;
     margin: 0 auto;
     width: 60%;
-    height: 300px;
     box-sizing: border-box; }
 
 .Search_Content {
@@ -86,12 +85,14 @@ input, button {
       margin-bottom: 20px;
       text-align: center; }
 
-.easy-autocomplete-container ul li {
-  list-style-type: none;
-  padding: 5px 10px; }
-.easy-autocomplete-container ul li.selected {
-  background: none repeat scroll 0 0 #ebebeb;
-  cursor: pointer; }
+.easy-autocomplete-container {
+  border: 1px solid #eaeaea; }
+  .easy-autocomplete-container ul li {
+    list-style-type: none;
+    padding: 5px 10px; }
+  .easy-autocomplete-container ul li.selected {
+    background: none repeat scroll 0 0 #ebebeb;
+    cursor: pointer; }
 
 .Search .Results {
   width: 60%;
@@ -112,10 +113,10 @@ input, button {
   margin: 0 auto;
   padding: 5px;
   padding-left: 10px;
-  width: 80%; }
+  width: 80%;
+  margin-bottom: 40px; }
   .Search_Content .Search_Panel .Search_PanelForm {
     position: relative;
-    padding-right: 50px;
     box-sizing: border-box;
     width: 100%;
     position: relative; }
@@ -125,8 +126,6 @@ input, button {
   box-sizing: border-box;
   width: 100%;
   overflow: hidden;
-  padding: 4px;
-  border: 1px solid #dadada;
   background: #fff; }
   .Search_PanelForm .Search_InputWrapper .Search_Input {
     font-size: 13px;
@@ -165,12 +164,11 @@ input, button {
       z-index: 500; }
 .Search_PanelForm .Search_ButtonWrapper {
   color: #FFF;
-  padding: 2px;
   position: absolute;
   right: 0;
   top: 0;
-  height: 42px;
-  width: 42px; }
+  height: 35px;
+  width: 35px; }
   .Search_PanelForm .Search_ButtonWrapper .Search_Button {
     cursor: pointer;
     border: thin solid #e5e5e5;

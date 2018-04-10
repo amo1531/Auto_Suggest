@@ -5,9 +5,10 @@
 	    padding: 5px;
 	    padding-left: 10px;
 	    width: 80%;
+	    margin-bottom: 40px;
 		.Search_PanelForm {
 			position: relative;
-    		padding-right: 50px;
+    		// padding-right: 50px;
     		box-sizing: border-box;
 		    width: 100%;
 		    position: relative;
@@ -22,8 +23,8 @@
 	    box-sizing: border-box;
 	    width: 100%;
 	    overflow: hidden;
-	    padding: 4px;
-    	border: 1px solid #dadada;
+	    // padding: 4px;
+    	// border: 1px solid #dadada;
     	background: #fff;
 
   		.Search_Input {
@@ -74,10 +75,10 @@
 
 	.Search_ButtonWrapper {
 		color: #FFF;
-	    padding: 2px;
+	    // padding: 2px;
 	    position: absolute;right: 0;top: 0;
-	    height: 42px;
-	    width: 42px;
+	    height: 35px;
+	    width: 35px;
 		.Search_Button {
 			cursor:pointer;
 			border: thin solid #e5e5e5;

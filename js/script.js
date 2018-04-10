@@ -31,7 +31,7 @@
           },
           onClickEvent: (function(_this) {
             return function() {
-              return _this.createBoxDynamically();
+              return _this.setWidthOfDynamicInputBox();
             };
           })(this)
         }
@@ -68,7 +68,7 @@
           keyCode = e.keyCode || e.which;
           if (keyCode === 9) {
             e.preventDefault();
-            return _this.createBoxDynamically();
+            return _this.setWidthOfDynamicInputBox();
           }
         };
       })(this));
@@ -77,7 +77,6 @@
           var closestEle, res, valueToBeRemoved;
           closestEle = $(e.currentTarget);
           valueToBeRemoved = closestEle.siblings("input").val();
-          _this.countryNames.pop(valueToBeRemoved);
           res = $(".Results_list").find("li .countryname");
           $.each(res, function(index, elements) {
             if (valueToBeRemoved === $(elements).html()) {
@@ -94,8 +93,8 @@
       return $("#searchInput").css("width", "100%");
     };
 
-    AutoSuggest.prototype.createBoxDynamically = function() {
-      var dynamicWidth, inputbox, searchValue, spanElement;
+    AutoSuggest.prototype.setWidthOfDynamicInputBox = function() {
+      var dynamicWidth, searchValue, spanElement;
       searchValue = $("#searchInput").val();
       dynamicWidth = searchValue.length * 8;
       if (searchValue.length > 24) {
@@ -103,18 +102,16 @@
       } else {
         dynamicWidth = searchValue.length * 8;
       }
-      inputbox = '<input class="Search_Input DynamicInput" " type ="text" value ="' + searchValue + '"/>' + '<a class="Search_cross">×</a>';
-      spanElement = '<span class = "SearchSpan" style="width:' + dynamicWidth + 'px" >' + inputbox + '</span>';
-      $("#searchInput").val("");
+      spanElement = this.getInputStructure(dynamicWidth, searchValue);
       $(".easy-autocomplete").prepend(spanElement);
-      return this.changeMainSearchWidth(dynamicWidth + 24);
+      return this.setWidthOfMainInputBox(dynamicWidth + 24);
     };
 
     AutoSuggest.prototype.buildqueryStringUrl = function(currenturl, parameter, searchTerm) {
       return currenturl + "?" + parameter + "=" + searchTerm;
     };
 
-    AutoSuggest.prototype.changeMainSearchWidth = function(dynamicWidth) {
+    AutoSuggest.prototype.setWidthOfMainInputBox = function(dynamicWidth) {
       this.boxWidth += dynamicWidth;
       if (this.boxWidth > 440) {
         $("#searchInput").css("width", "461px");
@@ -134,13 +131,26 @@
         return function(data) {
           return $.each(data, function(index, obj) {
             if (value === data[index].country_name) {
-              _this.displayDetails = '<li class="name"><p><label><strong>Country Name: </strong></label><label class = "countryname" >' + data[index].country_name + '</label></p><p class="code"><label><strong>Dialling Code: </strong></label><label class = "dialingcode" >' + data[index].dialling_code + '</label></p></li>';
+              _this.displayDetails = _this.resultDetails(data[index].country_name, data[index].dialling_code);
               $(".Results_list").append(_this.displayDetails);
               return $(".Results_list").css("display", "block");
             }
           });
         };
       })(this));
+    };
+
+    AutoSuggest.prototype.getInputStructure = function(dynamicWidth, searchValue) {
+      var htmlStructure;
+      htmlStructure = '<span class = "SearchSpan" style="width:' + dynamicWidth + 'px" >' + '<input class="Search_Input DynamicInput" " type ="text" value ="' + searchValue + '"/>' + '<a class="Search_cross">×</a>' + '</span>';
+      $("#searchInput").val("");
+      return $(htmlStructure);
+    };
+
+    AutoSuggest.prototype.resultDetails = function(name, code) {
+      var result;
+      result = '<li class="name">' + '<p>' + '<label><strong>Country Name: </strong></label>' + '<label class = "countryname" >' + name + '</label>' + '</p>' + '<p>' + '<label><strong>Dialling Code: </strong></label>' + '<label class = "dialingcode" >' + code + '</label>' + '</p>' + '</li>';
+      return $(result);
     };
 
     AutoSuggest.prototype.createBoxOnloadOfPage = function() {
@@ -160,18 +170,16 @@
       console.log(queryString);
       return $.each(this.countryNames, (function(_this) {
         return function(index, value) {
-          var dynamicWidth, inputbox, spanElement;
+          var dynamicWidth, spanElement;
           dynamicWidth = _this.countryNames[index].length * 8;
           if (_this.countryNames[index].length > 24) {
             dynamicWidth = _this.countryNames[index].length * 7;
           } else {
             dynamicWidth = _this.countryNames[index].length * 8;
           }
-          inputbox = '<input class="Search_Input DynamicInput" " type ="text" value ="' + _this.countryNames[index] + '"/>' + '<a class="Search_cross">×</a>';
-          spanElement = '<span class = "SearchSpan" style="width:' + dynamicWidth + 'px" >' + inputbox + '</span>';
-          $("#searchInput").val("");
+          spanElement = _this.getInputStructure(dynamicWidth, _this.countryNames[index]);
           $(".Search_InputWrapper").prepend(spanElement);
-          return _this.changeMainSearchWidth(dynamicWidth + 24);
+          return _this.setWidthOfMainInputBox(dynamicWidth + 24);
         };
       })(this));
     };
